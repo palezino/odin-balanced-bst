@@ -94,6 +94,27 @@ class Tree {
     }
     return node;
   }
+  levelOrder(func) {
+    let queue = [this.root];
+    let arr = [];
+    if (func === undefined) {
+        func = (node) => {
+            arr.push(node.data);
+        }
+    }
+
+    while(queue.length !== 0) {
+        let node = queue.shift();
+        if (node.left !== null) {
+            queue.push(node.left);
+        }
+        if (node.right !== null) {
+            queue.push(node.right);
+        }
+        func(node);
+    }
+    return arr;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -112,7 +133,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 let newTree = new Tree(array);
-
+newTree.levelOrder()
 
 prettyPrint(newTree.root);
 console.log(newTree.find(67));
