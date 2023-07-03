@@ -80,6 +80,20 @@ class Tree {
         return node;
     }
   }
+  find(value) {
+    let node = this.root;
+    while(node.data !== value) {
+        if (value > node.data) {
+            node = node.right;
+        } else {
+            node = node.left;
+        }
+        if (node === null) {
+            return null;
+        }
+    }
+    return node;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -98,7 +112,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 let newTree = new Tree(array);
-newTree.delete(67);
+
 
 prettyPrint(newTree.root);
-console.log(newTree.root);
+console.log(newTree.find(67));
