@@ -115,7 +115,6 @@ class Tree {
     }
     return arr;
   }
-
   inorder(func, node=this.root) {
   // left->root->right
     let arr = [];
@@ -164,6 +163,16 @@ class Tree {
       func(node);
     }
   }
+  height(node) {
+    if (node === null) {
+      return 0;
+    } else {
+      return Math.max(this.height(node.left) + 1, this.height(node.right) + 1)
+      // this.height(node.left);
+      // this.height(node.right);
+    }
+    // console.log(arr)
+  }
 };
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
@@ -181,7 +190,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 let newTree = new Tree(array);
-newTree.postorder();
+newTree.insert(322);
+// newTree.height(newTree.root);
 
 prettyPrint(newTree.root);
-// console.log(newTree.find(67));
+console.log(newTree.height(newTree.root));
