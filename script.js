@@ -115,8 +115,56 @@ class Tree {
     }
     return arr;
   }
-}
 
+  inorder(func, node=this.root) {
+  // left->root->right
+    let arr = [];
+    if (func === undefined) {
+        func = (node) => {
+            arr.push(node.data);
+        }
+    }
+    if (node === null) {
+      return;
+    } else {
+      this.preorder(func, node.left);
+      func(node);
+      this.preorder(func, node.right);
+    }
+  }
+  preorder(func, node=this.root) {
+    // root->left->right
+    let arr = [];
+    if (func === undefined) {
+        func = (node) => {
+            arr.push(node.data);
+        }
+    }
+    if (node === null) {
+      return;
+    } else {
+      func(node);
+      this.preorder(func, node.left);
+      this.preorder(func, node.right);
+    }
+  }
+  postorder(func, node = this.root) {
+    // left->right->root
+    let arr = [];
+    if (func === undefined) {
+        func = (node) => {
+            arr.push(node.data);
+        }
+    }
+    if (node === null) {
+      return;
+    } else {
+      this.preorder(func, node.left);
+      this.preorder(func, node.right);
+      func(node);
+    }
+  }
+};
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
     return;
@@ -128,12 +176,12 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node.left !== null) {
     prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
-};
+}
 
 let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 let newTree = new Tree(array);
-newTree.levelOrder()
+newTree.postorder();
 
 prettyPrint(newTree.root);
-console.log(newTree.find(67));
+// console.log(newTree.find(67));
