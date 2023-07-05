@@ -165,13 +165,27 @@ class Tree {
   }
   height(node) {
     if (node === null) {
-      return 0;
+      return -1;
     } else {
       return Math.max(this.height(node.left) + 1, this.height(node.right) + 1)
-      // this.height(node.left);
-      // this.height(node.right);
     }
-    // console.log(arr)
+  }
+  depth(node) {
+    if (this.root === null) {
+      return;
+    }
+    let rootNode = this.root;
+    let count = 0;
+    while(rootNode !== node || rootNode === null) {
+      if(node.data < rootNode.data) {
+        rootNode = rootNode.left;
+        count++;
+      } else {
+        rootNode = rootNode.right;
+        count++;
+      }
+    }
+    return count;
   }
 };
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -194,4 +208,5 @@ newTree.insert(322);
 // newTree.height(newTree.root);
 
 prettyPrint(newTree.root);
-console.log(newTree.height(newTree.root));
+// console.log(newTree.root.right.right.left)
+console.log(newTree.depth(newTree.root.right.right.left));
