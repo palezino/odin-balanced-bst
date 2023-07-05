@@ -130,6 +130,7 @@ class Tree {
       func(node);
       this.preorder(func, node.right);
     }
+    return arr;
   }
   preorder(func, node=this.root) {
     // root->left->right
@@ -146,6 +147,7 @@ class Tree {
       this.preorder(func, node.left);
       this.preorder(func, node.right);
     }
+    return arr;
   }
   postorder(func, node = this.root) {
     // left->right->root
@@ -162,6 +164,7 @@ class Tree {
       this.preorder(func, node.right);
       func(node);
     }
+    return arr;
   }
   height(node) {
     if (node === null) {
@@ -196,6 +199,9 @@ class Tree {
       return true;
     }
   }
+  rebalance() {
+    this.root = this.buildTree(this.inorder());
+  }
 };
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
@@ -214,10 +220,13 @@ let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 let newTree = new Tree(array);
 newTree.insert(322);
-// newTree.insert(201);
+newTree.insert(201);
 // newTree.height(newTree.root);
 
 prettyPrint(newTree.root);
 // newTree.isBalanced();
+console.log(newTree.isBalanced());
+newTree.rebalance();
+prettyPrint(newTree.root);
 console.log(newTree.isBalanced());
 // console.log(newTree.depth(newTree.root.right.right.left));
